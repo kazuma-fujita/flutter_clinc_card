@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
@@ -65,8 +66,12 @@ class _ImageSliderState extends State<ImageSlider> {
   Widget _buildImageView(BuildContext context, int horizontalIndex) {
     final imageUrl =
         'https://source.unsplash.com/random/370x250?sig=$horizontalIndex';
-    return Image.network(
-      imageUrl,
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+          child: CircularProgressIndicator(value: downloadProgress.progress)),
+      errorWidget: (context, url, dynamic error) =>
+          const Center(child: Icon(Icons.error)),
       fit: BoxFit.cover,
     );
   }
