@@ -27,6 +27,7 @@ class _ImageSliderState extends State<ImageSlider> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
+      // 画像が四角の角丸からはみ出さない設定
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 8,
       child: SizedBox(
