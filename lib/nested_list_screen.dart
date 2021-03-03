@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
 
 import 'image_slider.dart';
 
@@ -32,10 +33,23 @@ class NestedList extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: ImageSlider(imageCount: 5),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            // お気に入りボタンを画像の右上に表示
+            child: Stack(
+              children: <Widget>[
+                const ImageSlider(imageCount: 5),
+                // お気に入りボタン位置
+                Positioned(
+                  top: 24,
+                  right: 24,
+                  child: LikeButton(
+                    key: Key(verticalIndex.toString()),
+                  ),
+                ),
+              ],
+            ),
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
