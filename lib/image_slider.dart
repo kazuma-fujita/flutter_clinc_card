@@ -66,7 +66,7 @@ class _ImageSliderState extends State<ImageSlider> {
         'https://source.unsplash.com/random/370x250?sig=$horizontalIndex';
     return Image.network(
       imageUrl,
-      fit: BoxFit.fill,
+      fit: BoxFit.cover,
     );
   }
 }

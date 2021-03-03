@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:page_view_indicators/circle_page_indicator.dart';
 
 import 'image_slider.dart';
 
@@ -13,33 +12,17 @@ class NestedListScreen extends StatelessWidget {
   }
 }
 
-class NestedList extends StatefulWidget {
-  @override
-  _NestedListState createState() => _NestedListState();
-}
-
-class _NestedListState extends State<NestedList> {
-  final _currentPageNotifier = ValueNotifier<int>(0);
-
+class NestedList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Nested List'),
+        title: const Text('Clinic Card List'),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 16),
         itemBuilder: _buildVerticalItem,
       ),
-    );
-  }
-
-  Widget _buildImageView(BuildContext context, int horizontalIndex) {
-    final imageUrl =
-        'https://source.unsplash.com/random/370x250?sig=$horizontalIndex';
-    return Image.network(
-      imageUrl,
-      fit: BoxFit.fill,
     );
   }
 
