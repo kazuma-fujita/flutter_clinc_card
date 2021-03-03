@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'nested_list_screen.dart';
+
 class UpsertClinicCard extends StatelessWidget {
+  const UpsertClinicCard({@required this.arguments});
+  final ClinicCardArguments arguments;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('診察券'),
+    return Hero(
+      tag: 'card-${arguments.verticalIndex}${arguments.horizontalIndex}',
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('診察券'),
+        ),
+        body: ClinicCardForm(),
       ),
-      body: ClinicCardForm(),
     );
   }
 }
