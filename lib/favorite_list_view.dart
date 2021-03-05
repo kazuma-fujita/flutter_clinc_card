@@ -93,9 +93,27 @@ class NestedList extends HookWidget {
                 Positioned(
                   top: 24,
                   right: 24,
+                  // Flutter native version
+                  // child: IconButton(
+                  //   icon: const Icon(Icons.favorite),
+                  //   color: favorite.isFavorite ? Colors.pink : Colors.grey,
+                  //   onPressed: () async {
+                  //     await context
+                  //         .read(favoriteListViewModelProvider)
+                  //         .toggleIsFavorite(
+                  //             id: favorite.id, isFavorite: favorite.isFavorite);
+                  //   },
+                  // ),
                   child: LikeButton(
                     key: Key(verticalIndex.toString()),
                     isLiked: favorite.isFavorite,
+                    onTap: (bool isLiked) async {
+                      await context
+                          .read(favoriteListViewModelProvider)
+                          .toggleIsFavorite(
+                              id: favorite.id, isFavorite: favorite.isFavorite);
+                      return !isLiked;
+                    },
                   ),
                 ),
               ],

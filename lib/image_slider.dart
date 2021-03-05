@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ImageSlider extends StatefulWidget {
-  ImageSlider({required this.images});
-  List<String> images;
+  const ImageSlider({required this.images});
+  final List<String> images;
   @override
   _ImageSliderState createState() => _ImageSliderState();
 }
