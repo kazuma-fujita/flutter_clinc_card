@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'nested_list_screen.dart';
+import 'favorite_list_view.dart';
 
 class UpsertClinicCard extends StatelessWidget {
   const UpsertClinicCard({required this.arguments});
@@ -33,8 +33,9 @@ class ClinicCardForm extends StatelessWidget {
             flex: 1,
             child: Center(
               child: TextField(
-                maxLength: 16,
-                maxLengthEnforced: true,
+                maxLength: 4,
+                maxLengthEnforcement:
+                    MaxLengthEnforcement.truncateAfterCompositionEnds,
                 decoration: const InputDecoration(
                   hintText: '診察券番号を入力してください',
                   labelText: '診察券番号',
@@ -49,7 +50,7 @@ class ClinicCardForm extends StatelessWidget {
             flex: 1,
             child: Center(
               child: TextField(
-                maxLength: 16,
+                maxLength: 4,
                 maxLengthEnforcement:
                     MaxLengthEnforcement.truncateAfterCompositionEnds,
                 decoration: const InputDecoration(
@@ -65,10 +66,10 @@ class ClinicCardForm extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Center(
-              child: RaisedButton(
-                color: Theme.of(context).primaryColorLight,
-                child: const Text('登録する'),
+              child: ElevatedButton(
+                // color: Theme.of(context).primaryColorLight,
                 onPressed: () => Navigator.pop(context),
+                child: const Text('登録する'),
               ),
             ),
           ),

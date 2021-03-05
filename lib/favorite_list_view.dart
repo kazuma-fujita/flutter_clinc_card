@@ -8,15 +8,11 @@ class Const {
   static const routeNameUpsertClinicCard = '/upsert-clinic-card';
 }
 
-class NestedListScreen extends StatelessWidget {
+class FavoriteListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.white),
-      // routes: <String, WidgetBuilder>{
-      //   Const.routeNameUpsertClinicCard: (BuildContext context) =>
-      //       UpsertClinicCard(),
-      // },
       // 画面遷移時にアニメーションを設定する為 onGenerateRoute でルーティング
       onGenerateRoute: (settings) {
         // 遷移先画面に渡す値を取得
@@ -55,7 +51,7 @@ class NestedList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Clinic Card List'),
+        title: const Text('かかりつけ'),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 16),
@@ -83,6 +79,7 @@ class NestedList extends StatelessWidget {
                   right: 24,
                   child: LikeButton(
                     key: Key(verticalIndex.toString()),
+                    isLiked: false,
                   ),
                 ),
               ],

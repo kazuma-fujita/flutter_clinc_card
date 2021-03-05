@@ -37,8 +37,6 @@ class _ImageSliderState extends State<ImageSlider> {
               PageController(initialPage: initialPageCount(widget.imageCount)),
           itemBuilder: _buildImageView,
           onPageChanged: (int index) {
-            print(index);
-            print(index % widget.imageCount);
             _currentPageNotifier.value = index % widget.imageCount;
           },
         ),
