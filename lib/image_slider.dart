@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({required this.imageCount});
+  const ImageSlider({required this.imageCount}) : assert(10 >= imageCount);
   final int imageCount;
   @override
   _ImageSliderState createState() => _ImageSliderState();
@@ -24,7 +24,6 @@ class _ImageSliderState extends State<ImageSlider> {
 
   Widget _buildImageSlider() {
     return Card(
-      // margin: const EdgeInsets.symmetric(horizontal: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -34,12 +33,13 @@ class _ImageSliderState extends State<ImageSlider> {
       child: SizedBox(
         height: 240,
         child: PageView.builder(
-          // controller: PageController(),
-          // controller: PageController(initialPage: 1),
-          itemCount: widget.imageCount,
+          controller:
+              PageController(initialPage: initialPageCount(widget.imageCount)),
           itemBuilder: _buildImageView,
           onPageChanged: (int index) {
-            _currentPageNotifier.value = index;
+            print(index);
+            print(index % widget.imageCount);
+            _currentPageNotifier.value = index % widget.imageCount;
           },
         ),
       ),
@@ -75,5 +75,18 @@ class _ImageSliderState extends State<ImageSlider> {
           const Center(child: Icon(Icons.error)),
       fit: BoxFit.cover,
     );
+  }
+
+  int initialPageCount(int imageCount) {
+    if (imageCount % 9 == 0) {
+      return 999;
+    }
+    if (imageCount % 7 == 0) {
+      return 1001;
+    }
+    if (imageCount % 3 == 0) {
+      return 1002;
+    }
+    return 1000;
   }
 }
