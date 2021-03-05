@@ -118,7 +118,8 @@ class NestedList extends StatelessWidget {
 
 @immutable
 class ClinicCardArguments {
-  const ClinicCardArguments({this.verticalIndex, this.horizontalIndex});
+  const ClinicCardArguments(
+      {required this.verticalIndex, required this.horizontalIndex});
   final int verticalIndex;
   final int horizontalIndex;
 }

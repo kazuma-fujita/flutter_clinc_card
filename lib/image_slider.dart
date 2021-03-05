@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({@required this.imageCount});
+  const ImageSlider({required this.imageCount});
   final int imageCount;
   @override
   _ImageSliderState createState() => _ImageSliderState();
@@ -35,6 +35,7 @@ class _ImageSliderState extends State<ImageSlider> {
         height: 240,
         child: PageView.builder(
           // controller: PageController(),
+          // controller: PageController(initialPage: 1),
           itemCount: widget.imageCount,
           itemBuilder: _buildImageView,
           onPageChanged: (int index) {

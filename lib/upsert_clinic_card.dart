@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'nested_list_screen.dart';
 
 class UpsertClinicCard extends StatelessWidget {
-  const UpsertClinicCard({@required this.arguments});
+  const UpsertClinicCard({required this.arguments});
   final ClinicCardArguments arguments;
 
   @override
@@ -49,7 +50,8 @@ class ClinicCardForm extends StatelessWidget {
             child: Center(
               child: TextField(
                 maxLength: 16,
-                maxLengthEnforced: true,
+                maxLengthEnforcement:
+                    MaxLengthEnforcement.truncateAfterCompositionEnds,
                 decoration: const InputDecoration(
                   hintText: '次回予約日時メモを入力してください',
                   labelText: '次回予約日時メモ',

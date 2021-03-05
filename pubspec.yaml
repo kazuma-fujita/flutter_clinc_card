@@ -18,32 +18,32 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  hooks_riverpod:
-  state_notifier:
-  freezed_annotation:
-  fluttertoast:
-  cached_network_image:
-  page_view_indicators:
+  hooks_riverpod: ^0.13.0-nullsafety.3
+  state_notifier: ^0.7.0
+  freezed_annotation: ^0.13.0-nullsafety.0
+  fluttertoast: ^8.0.1-nullsafety.0
+  cached_network_image: ^3.0.0-nullsafety
+  page_view_indicators: ^2.0.0-nullsafety.0
   like_button:
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic_mono:
+  pedantic_mono: ^1.11.0+2
   build_runner:
-  freezed:
+  freezed: ^0.14.0-nullsafety.0
   json_serializable:
-  mockito:
+  mockito: ^5.0.0-nullsafety.7
   mock_web_server:
 
 # For information on the generic Dart part of this file, see the
