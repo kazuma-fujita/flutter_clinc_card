@@ -68,11 +68,13 @@ class NestedList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
+            // 画像の左右padding
             padding: const EdgeInsets.symmetric(horizontal: 8),
             // お気に入りボタンを画像の右上に表示
             child: Stack(
               children: <Widget>[
-                const ImageSlider(imageCount: 5),
+                // 画像スライダー
+                const ImageSlider(imageCount: 2),
                 // お気に入りボタン位置
                 Positioned(
                   top: 24,
@@ -86,6 +88,7 @@ class NestedList extends StatelessWidget {
             ),
           ),
           const Padding(
+            // 医院名の左右padding
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               'Hey',

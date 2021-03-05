@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({required this.imageCount}) : assert(10 >= imageCount);
+  const ImageSlider({required this.imageCount})
+      : assert(10 >= imageCount && imageCount > 0);
   final int imageCount;
   @override
   _ImageSliderState createState() => _ImageSliderState();
@@ -14,16 +15,20 @@ class _ImageSliderState extends State<ImageSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _buildImageSlider(),
-        _buildCircleIndicator(),
-      ],
-    );
+    // 画像が1枚以上あればIndicator表示
+    return widget.imageCount == 1
+        ? _buildImageSlider()
+        : Stack(
+            children: [
+              _buildImageSlider(),
+              _buildCircleIndicator(),
+            ],
+          );
   }
 
   Widget _buildImageSlider() {
     return Card(
+      // 角丸設定
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -31,15 +36,24 @@ class _ImageSliderState extends State<ImageSlider> {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: 8,
       child: SizedBox(
+        // 画像表示領域の高さ
         height: 240,
-        child: PageView.builder(
-          controller:
-              PageController(initialPage: initialPageCount(widget.imageCount)),
-          itemBuilder: _buildImageView,
-          onPageChanged: (int index) {
-            _currentPageNotifier.value = index % widget.imageCount;
-          },
-        ),
+        // 画像が1枚以上あればPageViewに無限スクロール設定
+        child: widget.imageCount == 1
+            ? PageView.builder(
+                itemCount: widget.imageCount,
+                itemBuilder: (BuildContext context, int horizontalIndex) =>
+                    _buildImageView(context),
+              )
+            : PageView.builder(
+                controller: PageController(
+                    initialPage: initialPageCount(widget.imageCount)),
+                itemBuilder: (BuildContext context, int horizontalIndex) =>
+                    _buildImageView(context),
+                onPageChanged: (int index) {
+                  _currentPageNotifier.value = index % widget.imageCount;
+                },
+              ),
       ),
     );
   }
@@ -62,9 +76,8 @@ class _ImageSliderState extends State<ImageSlider> {
     );
   }
 
-  Widget _buildImageView(BuildContext context, int horizontalIndex) {
-    final imageUrl =
-        'https://source.unsplash.com/random/370x250?sig=$horizontalIndex';
+  Widget _buildImageView(BuildContext context) {
+    const imageUrl = 'https://source.unsplash.com/random/370x250?sig=1';
     return CachedNetworkImage(
       imageUrl: imageUrl,
       progressIndicatorBuilder: (context, url, downloadProgress) => Center(
