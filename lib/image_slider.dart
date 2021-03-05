@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({required this.imageCount})
-      : assert(10 >= imageCount && imageCount > 0);
-  final int imageCount;
+  ImageSlider({required this.images});
+  List<String> images;
   @override
   _ImageSliderState createState() => _ImageSliderState();
 }
@@ -16,7 +15,7 @@ class _ImageSliderState extends State<ImageSlider> {
   @override
   Widget build(BuildContext context) {
     // 画像が1枚以上あればIndicator表示
-    return widget.imageCount == 1
+    return widget.images.length == 1
         ? _buildImageSlider()
         : Stack(
             children: [
@@ -39,19 +38,20 @@ class _ImageSliderState extends State<ImageSlider> {
         // 画像表示領域の高さ
         height: 240,
         // 画像が1枚以上あればPageViewに無限スクロール設定
-        child: widget.imageCount == 1
+        child: widget.images.length == 1
             ? PageView.builder(
-                itemCount: widget.imageCount,
-                itemBuilder: (BuildContext context, int horizontalIndex) =>
-                    _buildImageView(context),
+                itemCount: widget.images.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    _buildImageView(context, widget.images[index]),
               )
             : PageView.builder(
                 controller: PageController(
-                    initialPage: initialPageCount(widget.imageCount)),
-                itemBuilder: (BuildContext context, int horizontalIndex) =>
-                    _buildImageView(context),
+                    initialPage: initialPageCount(widget.images.length)),
+                itemBuilder: (BuildContext context, int index) =>
+                    _buildImageView(
+                        context, widget.images[index % widget.images.length]),
                 onPageChanged: (int index) {
-                  _currentPageNotifier.value = index % widget.imageCount;
+                  _currentPageNotifier.value = index % widget.images.length;
                 },
               ),
       ),
@@ -69,15 +69,14 @@ class _ImageSliderState extends State<ImageSlider> {
           dotColor: Colors.grey,
           selectedDotColor: Colors.white,
           selectedSize: 9,
-          itemCount: widget.imageCount,
+          itemCount: widget.images.length,
           currentPageNotifier: _currentPageNotifier,
         ),
       ),
     );
   }
 
-  Widget _buildImageView(BuildContext context) {
-    const imageUrl = 'https://source.unsplash.com/random/370x250?sig=1';
+  Widget _buildImageView(BuildContext context, String imageUrl) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       progressIndicatorBuilder: (context, url, downloadProgress) => Center(

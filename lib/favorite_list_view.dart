@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clinc_card/favorite.dart';
 import 'package:flutter_clinc_card/upsert_clinic_card.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'image_slider.dart';
+import 'main.dart';
 
 class Const {
   static const routeNameUpsertClinicCard = '/upsert-clinic-card';
@@ -45,7 +48,7 @@ class FavoriteListView extends StatelessWidget {
   }
 }
 
-class NestedList extends StatelessWidget {
+class NestedList extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,14 +56,25 @@ class NestedList extends StatelessWidget {
         elevation: 0,
         title: const Text('かかりつけ'),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        itemBuilder: _buildVerticalItem,
-      ),
+      body: _buildListView(),
     );
   }
 
-  Widget _buildVerticalItem(BuildContext context, int verticalIndex) {
+  Widget _buildListView() {
+    return useProvider(favoriteListViewModelProvider.state).maybeWhen(
+      data: (favorites) => ListView.builder(
+        itemCount: favorites.length,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        itemBuilder: (BuildContext context, int verticalIndex) =>
+            _buildVerticalItem(
+                context, favorites[verticalIndex], verticalIndex),
+      ),
+      orElse: () => Container(),
+    );
+  }
+
+  Widget _buildVerticalItem(
+      BuildContext context, Favorite favorite, int verticalIndex) {
     return SizedBox(
       height: 560,
       child: Column(
@@ -74,14 +88,14 @@ class NestedList extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 // 画像スライダー
-                const ImageSlider(imageCount: 2),
+                ImageSlider(images: favorite.images),
                 // お気に入りボタン位置
                 Positioned(
                   top: 24,
                   right: 24,
                   child: LikeButton(
                     key: Key(verticalIndex.toString()),
-                    isLiked: false,
+                    isLiked: favorite.isFavorite,
                   ),
                 ),
               ],
